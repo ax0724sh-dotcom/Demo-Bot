@@ -1,201 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Student Assistant | Pro</title>
+    <title>Student Assistant PRO</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Telegram API -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body class="dark-mode">
-    <div class="app-container">
-        
-        <!-- Screen: Dashboard (Home) -->
-        <div id="homeScreen" class="screen active">
-            <header class="header">
-                <div class="user-info">
-                    <h1 id="greeting">Xush kelibsiz!</h1>
-                    <p class="subtitle">Bugun nima qilamiz?</p>
-                </div>
-                <button id="themeToggle" class="icon-btn highlight"><i class="ri-moon-line"></i></button>
-            </header>
 
-            <div class="stats-row">
-                <div class="stat-pill"><i class="ri-vip-crown-2-line"></i> <span id="userStatus">Standard</span></div>
-                <div class="stat-pill"><i class="ri-コイン-line"></i> 0 Points</div>
-            </div>
-
-            <div class="section-title">Asosiy Bo'limlar</div>
-            <div class="features-grid">
-                <div class="feature-card pro-locked" onclick="navTo('aiScreen')">
-                    <div class="feature-icon"><i class="ri-robot-line"></i></div>
-                    <div class="feature-content">
-                        <h3>AI Referat Generator</h3>
-                        <p>Mavzu bo'yicha strukturaviy reja yarating.</p>
-                    </div>
-                </div>
-                <div class="feature-card" onclick="navTo('marketScreen')">
-                    <div class="feature-icon market"><i class="ri-shopping-bag-3-line"></i></div>
-                    <div class="feature-content">
-                        <h3>Marketplace</h3>
-                        <p>Kitoblar va jihozlarni sotish yoki olish.</p>
-                    </div>
-                </div>
-                <div class="feature-card" onclick="navTo('scheduleScreen')">
-                    <div class="feature-icon schedule"><i class="ri-calendar-event-line"></i></div>
-                    <div class="feature-content">
-                        <h3>Dars Jadvali</h3>
-                        <p>Haftalik darslaringizni tartibga soling.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="upgrade-banner" id="upgradeBanner">
-                <div class="banner-content">
-                    <h2>PRO imkoniyatlar!</h2>
-                    <p>Referatlar va AI yordamchini cheksiz ishlating.</p>
-                </div>
-                <button class="btn btn-premium shimmer" onclick="navTo('paymentScreen')">
-                    <i class="ri-vip-crown-fill"></i> Premium: 10,000 UZS
-                </button>
-            </div>
-        </div>
-
-        <!-- Screen: AI Generator -->
-        <div id="aiScreen" class="screen hidden">
-            <header class="screen-header">
-                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
-                <h2>Referat AI</h2>
-            </header>
-            <div class="card-glass">
-                <label>Mavzuni kiriting:</label>
-                <input type="text" id="aiTopic" placeholder="Masalan: O'zbekiston iqtisodiyoti...">
-                <button class="btn btn-accent mt-3" id="generateAI">Yaratish (PRO)</button>
-            </div>
-            <div id="aiResult" class="mt-4 pro-blur">
-                <p class="placeholder-text">Natija bu yerda ko'rinadi...</p>
-            </div>
-        </div>
-
-        <!-- Screen: Marketplace -->
-        <div id="marketScreen" class="screen hidden">
-            <header class="screen-header">
-                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
-                <h2>Marketplace</h2>
-                <button class="icon-btn-small"><i class="ri-add-line"></i></button>
-            </header>
-            <div class="market-grid">
-                <div class="item-card">
-                    <div class="item-img"><i class="ri-book-3-line"></i></div>
-                    <div class="item-info">
-                        <h4>Fizika To'plam</h4>
-                        <p>30,000 UZS</p>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="item-img"><i class="ri-macbook-line"></i></div>
-                    <div class="item-info">
-                        <h4>Apple Mouse</h4>
-                        <p>150,000 UZS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen: Schedule -->
-        <div id="scheduleScreen" class="screen hidden">
-            <header class="screen-header">
-                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
-                <h2>Dars Jadvali</h2>
-            </header>
-            <div class="days-scroll">
-                <span class="day active">DU</span>
-                <span class="day">SE</span>
-                <span class="day">CH</span>
-                <span class="day">PA</span>
-                <span class="day">JU</span>
-                <span class="day">SH</span>
-            </div>
-            <div class="schedule-list">
-                <div class="sched-item">
-                    <div class="time">08:30</div>
-                    <div class="subject">Matematika l-qism</div>
-                </div>
-                <div class="sched-item">
-                    <div class="time">10:00</div>
-                    <div class="subject">Ingliz tili</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen: Payment -->
-        <div id="paymentScreen" class="screen hidden">
-            <header class="screen-header">
-                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
-                <h2>To'lov</h2>
-            </header>
-            <div class="credit-card">
-                <div class="card-chip"></div>
-                <div class="card-logo"><i class="ri-bank-card-fill"></i></div>
-                <div class="card-number" id="cardNumber">8600 0000 0000 1234</div>
-                <div class="card-details">
-                    <div class="card-holder"><span>Qabul qiluvchi</span><p>ADMIN NAME</p></div>
-                    <div class="card-expire"><span>Summa</span><p>10,000 UZS</p></div>
-                </div>
-                <button class="copy-btn" id="copyBtn"><i class="ri-file-copy-line"></i> Nusxa olish</button>
-            </div>
-            <button id="confirmPayBtn" class="btn btn-success">Tasdiqlash</button>
-        </div>
-
-        <!-- Screen: Invite -->
-        <div id="inviteScreen" class="screen hidden">
-            <header class="screen-header">
-                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
-                <h2>Do'stlarni Taklif Qilish</h2>
-            </header>
-            <div class="invite-banner">
-                <div class="invite-icon"><i class="ri-heart-3-fill"></i></div>
-                <h3>Do'stlarga ulashing!</h3>
-                <p>Har bir taklif qilingan do'st uchun sizga <b>1 ball</b> beriladi.</p>
-            </div>
-            
-            <div class="stats-card mt-3">
-                <div class="stat-item">
-                    <span id="currentPoints">0</span>
-                    <label>Jami Ballar</label>
-                </div>
-                <div class="stat-item">
-                    <span id="totalInvites">0</span>
-                    <label>Takliflar</label>
-                </div>
-            </div>
-
-            <div class="card-glass mt-3">
-                <label>Sizning referral havolangiz:</label>
-                <div class="copy-input">
-                    <input type="text" id="refLink" readonly value="Loading...">
-                    <button id="copyRefBtn"><i class="ri-file-copy-line"></i></button>
-                </div>
-                <button class="btn btn-accent mt-3 shimmer" id="shareBtn"><i class="ri-share-forward-line"></i> Havolani Ulashish</button>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <div class="nav-item active" onclick="navTo('homeScreen')"><i class="ri-home-5-line"></i><span>Asosiy</span></div>
-            <div class="nav-item" onclick="navTo('inviteScreen')"><i class="ri-group-line"></i><span>Taklif</span></div>
-            <div class="nav-item" onclick="navTo('marketScreen')"><i class="ri-shopping-bag-line"></i><span>Market</span></div>
-            <div class="nav-item" onclick="navTo('aiScreen')"><i class="ri-magic-line"></i><span>AI</span></div>
-        </nav>
-
-        <div id="loadingOverlay" class="loading-overlay hidden">
-            <div class="spinner"></div>
-            <p>Yuklanmoqda...</p>
-        </div>
+    <!-- Background Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
 
+    <div class="app-container">
+        
+        <!-- Screen 1: Home -->
+        <div id="homeScreen" class="screen active">
+            <header class="header">
+                <div class="branding">
+                    <h1 id="greeting">Salom!</h1>
+                    <p class="subtitle">Platformaga xush kelibsiz</p>
+                </div>
+                <button class="btn-back" id="themeToggle"><i class="ri-moon-clear-line"></i></button>
+            </header>
+
+            <div class="status-row">
+                <div class="badge premium">
+                    <i class="ri-vip-crown-2-fill"></i>
+                    <span id="userStatus">Standard</span>
+                </div>
+                <div class="badge">
+                    <i class="ri-coins-line"></i>
+                    <span id="userPoints">0 ball</span>
+                </div>
+            </div>
+
+            <div id="upgradeBanner" class="hero-banner">
+                <div class="shimmer" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; opacity: 0.2;"></div>
+                <h2>Premiumga hammasi oson!</h2>
+                <p>AI yordamchi va reklamasiz marketdan foydalaning.</p>
+                <button class="btn-premium" onclick="navTo('payScreen')">Hozir faollashtirish</button>
+            </div>
+
+            <h2 class="section-title" style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">Xizmatlar</h2>
+            
+            <div class="features-grid">
+                <div class="card-feature" onclick="navTo('apiReferatScreen')">
+                    <div class="card-icon"><i class="ri-magic-line"></i></div>
+                    <div class="card-content">
+                        <h3>Referat AI</h3>
+                        <p>Mavzu bo'yicha professional reja tuzish</p>
+                    </div>
+                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                </div>
+
+                <div class="card-feature" onclick="navTo('marketScreen')">
+                    <div class="card-icon" style="color: var(--success);"><i class="ri-shopping-bag-3-line"></i></div>
+                    <div class="card-content">
+                        <h3>Marketplace</h3>
+                        <p>O'quv materiallari va qurilmalar</p>
+                    </div>
+                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                </div>
+
+                <div class="card-feature" onclick="navTo('scheduleScreen')">
+                    <div class="card-icon" style="color: var(--secondary);"><i class="ri-calendar-todo-line"></i></div>
+                    <div class="card-content">
+                        <h3>Dars Jadvali</h3>
+                        <p>Kundalik darslar va eslatmalar</p>
+                    </div>
+                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Market -->
+        <div id="marketScreen" class="screen">
+            <header class="screen-header">
+                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
+                <h2>Marketplace</h2>
+            </header>
+            
+            <div class="input-group">
+                <input type="text" placeholder="Buyum qidirish...">
+            </div>
+
+            <div class="market-list">
+                <div class="market-item">
+                    <div class="item-preview">📚</div>
+                    <h3 style="font-size: 14px; margin-bottom: 5px;">IELTS Kitoblar</h3>
+                    <p style="color: var(--success); font-weight: 700;">45,000 so'm</p>
+                </div>
+                <div class="market-item">
+                    <div class="item-preview">💻</div>
+                    <h3 style="font-size: 14px; margin-bottom: 5px;">MacBook Pro</h3>
+                    <p style="color: var(--success); font-weight: 700;">12,000,000 so'm</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: AI Referat -->
+        <div id="apiReferatScreen" class="screen">
+            <header class="screen-header">
+                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
+                <h2>Referat AI</h2>
+            </header>
+            
+            <div class="card-feature pro-locked" style="margin-bottom: 25px; border-style: dashed; border-color: var(--primary);">
+                <div class="card-content">
+                    <p>Ushbu bo'lim faqat <b>PRO</b> foydalanuvchilar uchun. Mavzu kiriting va AI botga natijani yuboradi.</p>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: block;">Mavzu yoki sarlavha:</label>
+                <input type="text" id="aiTopic" placeholder="Masalan: O'zbekiston iqtisodiyoti">
+            </div>
+
+            <button class="btn-premium" id="generateAI" style="background: var(--primary); color: #fff;">
+                <i class="ri-ai-generate"></i> Rejani shakllantirish
+            </button>
+        </div>
+
+        <!-- Screen 4: Invite -->
+        <div id="inviteScreen" class="screen">
+            <header class="screen-header">
+                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
+                <h2>Takliflar</h2>
+            </header>
+            
+            <div class="hero-banner" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Ballar To'plang!</h3>
+                <p>Har bir taklif qilingan do'st uchun sizga 1 ball beriladi.</p>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <div style="flex:1; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; text-align: center;">
+                        <span id="currentPointsBig" style="font-size: 24px; font-weight: 800; display: block;">0</span>
+                        <span style="font-size: 10px; opacity: 0.8;">Jami ballar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: block;">Sizning referral havolangiz:</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="refLink" readonly style="font-size: 11px;">
+                    <button class="btn-back" id="copyRefBtn" style="color: var(--primary);"><i class="ri-file-copy-line"></i></button>
+                </div>
+            </div>
+            <button class="btn-premium" id="shareBtn"><i class="ri-share-forward-line"></i> Do'stlarga yuborish</button>
+        </div>
+
+        <!-- Screen 5: Payments -->
+        <div id="payScreen" class="screen">
+            <header class="screen-header">
+                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
+                <h2>To'lov</h2>
+            </header>
+            <div style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border); margin-bottom: 30px;">
+                <div style="width: 45px; height: 30px; background: #eab308; border-radius: 6px; margin-bottom: 25px;"></div>
+                <h3 id="cardNumber" style="letter-spacing: 4px; font-size: 18px; margin-bottom: 20px;">8600 1234 5678 9012</h3>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.6;">
+                    <span>HOLDER NAME</span>
+                    <span>EXP DATE</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                    <span>ADMIN NAME</span>
+                    <span>12/28</span>
+                </div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; text-align: center;">Premium narxi: 10,000 so'm / Umrbod</p>
+            <button id="confirmPayBtn" class="btn-premium" style="background: var(--success); color: #fff;">To'lovni tasdiqlash</button>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="javascript:void(0)" class="nav-btn active" onclick="navTo('homeScreen')">
+            <i class="ri-home-7-line"></i>
+            <span>Asosiy</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('inviteScreen')">
+            <i class="ri-group-line"></i>
+            <span>Taklif</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('marketScreen')">
+            <i class="ri-shopping-bag-line"></i>
+            <span>Market</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('apiReferatScreen')">
+            <i class="ri-magic-line"></i>
+            <span>AI</span>
+        </a>
+    </nav>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; font-weight: 600;">Iltimos kuting...</p>
+    </div>
+
+    <!-- JavaScript -->
     <script src="app.js"></script>
 </body>
 </html>
