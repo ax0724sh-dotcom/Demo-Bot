@@ -2,47 +2,198 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Premium App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Student Assistant | Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="glass-panel" id="mainScreen">
-        <h1 id="greeting">Salom, Talaba!</h1>
-        <p>O'qishingiz uchun eng kerakli materiallar va yordamchilar bu yerda.</p>
+<body class="dark-mode">
+    <div class="app-container">
         
-        <div class="card-container">
-            <div class="card">
-                <h3>📚 Kurs Ishlari & Referatlar</h3>
-                <p>Tayyor materiallar bazasiga to'liq kirish. (Faqat Premiumda)</p>
+        <!-- Screen: Dashboard (Home) -->
+        <div id="homeScreen" class="screen active">
+            <header class="header">
+                <div class="user-info">
+                    <h1 id="greeting">Xush kelibsiz!</h1>
+                    <p class="subtitle">Bugun nima qilamiz?</p>
+                </div>
+                <button id="themeToggle" class="icon-btn highlight"><i class="ri-moon-line"></i></button>
+            </header>
+
+            <div class="stats-row">
+                <div class="stat-pill"><i class="ri-vip-crown-2-line"></i> <span id="userStatus">Standard</span></div>
+                <div class="stat-pill"><i class="ri-コイン-line"></i> 0 Points</div>
             </div>
-            <div class="card">
-                <h3>🤖 AI Yordamchi</h3>
-                <p>Masalalarni onson yechishda AI yordami. (Faqat Premiumda)</p>
+
+            <div class="section-title">Asosiy Bo'limlar</div>
+            <div class="features-grid">
+                <div class="feature-card pro-locked" onclick="navTo('aiScreen')">
+                    <div class="feature-icon"><i class="ri-robot-line"></i></div>
+                    <div class="feature-content">
+                        <h3>AI Referat Generator</h3>
+                        <p>Mavzu bo'yicha strukturaviy reja yarating.</p>
+                    </div>
+                </div>
+                <div class="feature-card" onclick="navTo('marketScreen')">
+                    <div class="feature-icon market"><i class="ri-shopping-bag-3-line"></i></div>
+                    <div class="feature-content">
+                        <h3>Marketplace</h3>
+                        <p>Kitoblar va jihozlarni sotish yoki olish.</p>
+                    </div>
+                </div>
+                <div class="feature-card" onclick="navTo('scheduleScreen')">
+                    <div class="feature-icon schedule"><i class="ri-calendar-event-line"></i></div>
+                    <div class="feature-content">
+                        <h3>Dars Jadvali</h3>
+                        <p>Haftalik darslaringizni tartibga soling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upgrade-banner" id="upgradeBanner">
+                <div class="banner-content">
+                    <h2>PRO imkoniyatlar!</h2>
+                    <p>Referatlar va AI yordamchini cheksiz ishlating.</p>
+                </div>
+                <button class="btn btn-premium shimmer" onclick="navTo('paymentScreen')">
+                    <i class="ri-vip-crown-fill"></i> Premium: 10,000 UZS
+                </button>
             </div>
         </div>
 
-        <button id="buyBtn" class="action-btn">👑 Premium Sotib Olish</button>
-    </div>
-
-    <!-- Buy Screen -->
-    <div class="glass-panel hidden" id="buyScreen">
-        <h1>👑 Premium Olish</h1>
-        <p>1 Oylik Premium narxi: <b>10,000 UZS</b></p>
-        
-        <div class="payment-card">
-            <h3 style="margin-top: 0;">💳 Karta raqami:</h3>
-            <p class="card-number" id="cardNumber">8600 0000 0000 2026</p>
-            <p class="card-name" style="margin-bottom: 0;">Qabul qiluvchi: ANONYMOUS BOT ADMIN</p>
+        <!-- Screen: AI Generator -->
+        <div id="aiScreen" class="screen hidden">
+            <header class="screen-header">
+                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
+                <h2>Referat AI</h2>
+            </header>
+            <div class="card-glass">
+                <label>Mavzuni kiriting:</label>
+                <input type="text" id="aiTopic" placeholder="Masalan: O'zbekiston iqtisodiyoti...">
+                <button class="btn btn-accent mt-3" id="generateAI">Yaratish (PRO)</button>
+            </div>
+            <div id="aiResult" class="mt-4 pro-blur">
+                <p class="placeholder-text">Natija bu yerda ko'rinadi...</p>
+            </div>
         </div>
-        <p style="font-size: 13px; margin: 15px 0; color: #a5b4fc;">
-            Pulingizni kartaga tushiring va "To'lov Qildim" tugmasini bosing. Admin tekshirib darhol bot orqali ruxsat beradi!
-        </p>
 
-        <button id="confirmPayBtn" class="action-btn success-btn">✅ To'lov Qildim</button>
-        <button id="backBtn" class="action-btn secondary-btn" style="margin-top: 10px;">🔙 Ortga</button>
+        <!-- Screen: Marketplace -->
+        <div id="marketScreen" class="screen hidden">
+            <header class="screen-header">
+                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
+                <h2>Marketplace</h2>
+                <button class="icon-btn-small"><i class="ri-add-line"></i></button>
+            </header>
+            <div class="market-grid">
+                <div class="item-card">
+                    <div class="item-img"><i class="ri-book-3-line"></i></div>
+                    <div class="item-info">
+                        <h4>Fizika To'plam</h4>
+                        <p>30,000 UZS</p>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-img"><i class="ri-macbook-line"></i></div>
+                    <div class="item-info">
+                        <h4>Apple Mouse</h4>
+                        <p>150,000 UZS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen: Schedule -->
+        <div id="scheduleScreen" class="screen hidden">
+            <header class="screen-header">
+                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
+                <h2>Dars Jadvali</h2>
+            </header>
+            <div class="days-scroll">
+                <span class="day active">DU</span>
+                <span class="day">SE</span>
+                <span class="day">CH</span>
+                <span class="day">PA</span>
+                <span class="day">JU</span>
+                <span class="day">SH</span>
+            </div>
+            <div class="schedule-list">
+                <div class="sched-item">
+                    <div class="time">08:30</div>
+                    <div class="subject">Matematika l-qism</div>
+                </div>
+                <div class="sched-item">
+                    <div class="time">10:00</div>
+                    <div class="subject">Ingliz tili</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen: Payment -->
+        <div id="paymentScreen" class="screen hidden">
+            <header class="screen-header">
+                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
+                <h2>To'lov</h2>
+            </header>
+            <div class="credit-card">
+                <div class="card-chip"></div>
+                <div class="card-logo"><i class="ri-bank-card-fill"></i></div>
+                <div class="card-number" id="cardNumber">8600 0000 0000 1234</div>
+                <div class="card-details">
+                    <div class="card-holder"><span>Qabul qiluvchi</span><p>ADMIN NAME</p></div>
+                    <div class="card-expire"><span>Summa</span><p>10,000 UZS</p></div>
+                </div>
+                <button class="copy-btn" id="copyBtn"><i class="ri-file-copy-line"></i> Nusxa olish</button>
+            </div>
+            <button id="confirmPayBtn" class="btn btn-success">Tasdiqlash</button>
+        </div>
+
+        <!-- Screen: Invite -->
+        <div id="inviteScreen" class="screen hidden">
+            <header class="screen-header">
+                <div class="back-nav" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></div>
+                <h2>Do'stlarni Taklif Qilish</h2>
+            </header>
+            <div class="invite-banner">
+                <div class="invite-icon"><i class="ri-heart-3-fill"></i></div>
+                <h3>Do'stlarga ulashing!</h3>
+                <p>Har bir taklif qilingan do'st uchun sizga <b>1 ball</b> beriladi.</p>
+            </div>
+            
+            <div class="stats-card mt-3">
+                <div class="stat-item">
+                    <span id="currentPoints">0</span>
+                    <label>Jami Ballar</label>
+                </div>
+                <div class="stat-item">
+                    <span id="totalInvites">0</span>
+                    <label>Takliflar</label>
+                </div>
+            </div>
+
+            <div class="card-glass mt-3">
+                <label>Sizning referral havolangiz:</label>
+                <div class="copy-input">
+                    <input type="text" id="refLink" readonly value="Loading...">
+                    <button id="copyRefBtn"><i class="ri-file-copy-line"></i></button>
+                </div>
+                <button class="btn btn-accent mt-3 shimmer" id="shareBtn"><i class="ri-share-forward-line"></i> Havolani Ulashish</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="navTo('homeScreen')"><i class="ri-home-5-line"></i><span>Asosiy</span></div>
+            <div class="nav-item" onclick="navTo('inviteScreen')"><i class="ri-group-line"></i><span>Taklif</span></div>
+            <div class="nav-item" onclick="navTo('marketScreen')"><i class="ri-shopping-bag-line"></i><span>Market</span></div>
+            <div class="nav-item" onclick="navTo('aiScreen')"><i class="ri-magic-line"></i><span>AI</span></div>
+        </nav>
+
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Yuklanmoqda...</p>
+        </div>
     </div>
 
     <script src="app.js"></script>
