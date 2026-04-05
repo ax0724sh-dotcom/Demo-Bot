@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Premium App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-panel" id="mainScreen">
+        <h1 id="greeting">Salom, Talaba!</h1>
+        <p>O'qishingiz uchun eng kerakli materiallar va yordamchilar bu yerda.</p>
+        
+        <div class="card-container">
+            <div class="card">
+                <h3>📚 Kurs Ishlari & Referatlar</h3>
+                <p>Tayyor materiallar bazasiga to'liq kirish. (Faqat Premiumda)</p>
+            </div>
+            <div class="card">
+                <h3>🤖 AI Yordamchi</h3>
+                <p>Masalalarni onson yechishda AI yordami. (Faqat Premiumda)</p>
+            </div>
+        </div>
+
+        <button id="buyBtn" class="action-btn">👑 Premium Sotib Olish</button>
+    </div>
+
+    <!-- Buy Screen -->
+    <div class="glass-panel hidden" id="buyScreen">
+        <h1>👑 Premium Olish</h1>
+        <p>1 Oylik Premium narxi: <b>10,000 UZS</b></p>
+        
+        <div class="payment-card">
+            <h3 style="margin-top: 0;">💳 Karta raqami:</h3>
+            <p class="card-number" id="cardNumber">8600 0000 0000 2026</p>
+            <p class="card-name" style="margin-bottom: 0;">Qabul qiluvchi: ANONYMOUS BOT ADMIN</p>
+        </div>
+        <p style="font-size: 13px; margin: 15px 0; color: #a5b4fc;">
+            Pulingizni kartaga tushiring va "To'lov Qildim" tugmasini bosing. Admin tekshirib darhol bot orqali ruxsat beradi!
+        </p>
+
+        <button id="confirmPayBtn" class="action-btn success-btn">✅ To'lov Qildim</button>
+        <button id="backBtn" class="action-btn secondary-btn" style="margin-top: 10px;">🔙 Ortga</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
