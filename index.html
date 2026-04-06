@@ -3,211 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Student Assistant PRO</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Talaba PRO - Premium Assistant</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Premium Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Telegram API -->
+    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-<body class="dark-mode">
-
-    <!-- Background Blobs -->
-    <div class="bg-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
+<body>
 
     <div class="app-container">
         
-        <!-- Screen 1: Home -->
+        <!-- Screen: Main Home -->
         <div id="homeScreen" class="screen active">
             <header class="header">
-                <div class="branding">
+                <div>
                     <h1 id="greeting">Salom!</h1>
-                    <p class="subtitle">Platformaga xush kelibsiz</p>
+                    <p style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Xizmatlarimizdan foydalaning</p>
                 </div>
-                <button class="btn-back" id="themeToggle"><i class="ri-moon-clear-line"></i></button>
-            </header>
-
-            <div class="status-row">
-                <div class="badge premium">
-                    <i class="ri-vip-crown-2-fill"></i>
+                <div class="user-badge" id="userStatusBox">
+                    <i class="ri-vip-crown-fill" style="color: var(--secondary);"></i>
                     <span id="userStatus">Standard</span>
                 </div>
-                <div class="badge">
-                    <i class="ri-coins-line"></i>
-                    <span id="userPoints">0 ball</span>
+            </header>
+
+            <div class="hero-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <div class="points-display" id="userPoints">0</div>
+                        <div class="points-label">Sizning ballaringiz</div>
+                    </div>
                 </div>
+                <div style="height: 1px; background: rgba(255,255,255,0.05); margin: 24px 0;"></div>
+                <button class="btn-main" onclick="navTo('payScreen')" id="upgradeBtn">
+                    <i class="ri-flashlight-line"></i> Premium Faollashtirish
+                </button>
             </div>
 
-            <div id="upgradeBanner" class="hero-banner">
-                <div class="shimmer" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; opacity: 0.2;"></div>
-                <h2>Premiumga hammasi oson!</h2>
-                <p>AI yordamchi va reklamasiz marketdan foydalaning.</p>
-                <button class="btn-premium" onclick="navTo('payScreen')">Hozir faollashtirish</button>
-            </div>
-
-            <h2 class="section-title" style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">Xizmatlar</h2>
+            <h2 class="grid-title">Barcha Xizmatlar</h2>
             
-            <div class="features-grid">
-                <div class="card-feature" onclick="navTo('apiReferatScreen')">
-                    <div class="card-icon"><i class="ri-magic-line"></i></div>
-                    <div class="card-content">
-                        <h3>Referat AI</h3>
-                        <p>Mavzu bo'yicha professional reja tuzish</p>
+            <div class="features-list">
+                <div class="card-item" onclick="navTo('apiReferatScreen')">
+                    <div class="icon-box icon-ai"><i class="ri-magic-line"></i></div>
+                    <div class="card-info">
+                        <h3>Referat AI Generator</h3>
+                        <p>Haqiqiy ChatGPT orqali reja tuzish</p>
                     </div>
-                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                    <i class="ri-arrow-right-s-line" style="margin-left:auto; font-size:20px; opacity:0.3;"></i>
                 </div>
 
-                <div class="card-feature" onclick="navTo('marketScreen')">
-                    <div class="card-icon" style="color: var(--success);"><i class="ri-shopping-bag-3-line"></i></div>
-                    <div class="card-content">
+                <div class="card-item" onclick="navTo('marketScreen')">
+                    <div class="icon-box icon-market"><i class="ri-shopping-basket-line"></i></div>
+                    <div class="card-info">
                         <h3>Marketplace</h3>
-                        <p>O'quv materiallari va qurilmalar</p>
+                        <p>Talabalar uchun savdo do'koni</p>
                     </div>
-                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                    <i class="ri-arrow-right-s-line" style="margin-left:auto; font-size:20px; opacity:0.3;"></i>
                 </div>
 
-                <div class="card-feature" onclick="navTo('scheduleScreen')">
-                    <div class="card-icon" style="color: var(--secondary);"><i class="ri-calendar-todo-line"></i></div>
-                    <div class="card-content">
+                <div class="card-item" onclick="navTo('scheduleScreen')">
+                    <div class="icon-box icon-schedule"><i class="ri-calendar-event-line"></i></div>
+                    <div class="card-info">
                         <h3>Dars Jadvali</h3>
-                        <p>Kundalik darslar va eslatmalar</p>
+                        <p>Haftalik darslarni boshqaring</p>
                     </div>
-                    <i class="ri-arrow-right-s-line card-arrow"></i>
+                    <i class="ri-arrow-right-s-line" style="margin-left:auto; font-size:20px; opacity:0.3;"></i>
                 </div>
             </div>
         </div>
 
-        <!-- Screen 2: Market -->
+        <!-- Screen: Market -->
         <div id="marketScreen" class="screen">
-            <header class="screen-header">
-                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
-                <h2>Marketplace</h2>
+            <header class="header">
+                <div>
+                    <h1 style="font-family: 'Outfit';">Marketplace</h1>
+                    <p style="font-size: 13px; color: var(--text-muted);">Sotib oling yoki soting</p>
+                </div>
+                <button class="icon-box" onclick="navTo('homeScreen')" style="background:transparent; border-radius:12px; font-size:24px;"><i class="ri-close-line"></i></button>
             </header>
             
-            <div class="input-group">
-                <input type="text" placeholder="Buyum qidirish...">
-            </div>
+            <input type="text" class="input-field" placeholder="Nimadir qidirasizmi?">
 
-            <div class="market-list">
-                <div class="market-item">
-                    <div class="item-preview">📚</div>
-                    <h3 style="font-size: 14px; margin-bottom: 5px;">IELTS Kitoblar</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="card-item" style="flex-direction:column; align-items:flex-start; gap:12px;">
+                    <div style="height: 100px; width:100%; background:rgba(255,255,255,0.03); border-radius:12px; display:flex; justify-content:center; align-items:center; font-size:40px;">📚</div>
+                    <h3>IELTS Kitob</h3>
                     <p style="color: var(--success); font-weight: 700;">45,000 so'm</p>
                 </div>
-                <div class="market-item">
-                    <div class="item-preview">💻</div>
-                    <h3 style="font-size: 14px; margin-bottom: 5px;">MacBook Pro</h3>
-                    <p style="color: var(--success); font-weight: 700;">12,000,000 so'm</p>
+                <div class="card-item" style="flex-direction:column; align-items:flex-start; gap:12px;">
+                    <div style="height: 100px; width:100%; background:rgba(255,255,255,0.03); border-radius:12px; display:flex; justify-content:center; align-items:center; font-size:40px;">💻</div>
+                    <h3>Laptop HP</h3>
+                    <p style="color: var(--success); font-weight: 700;">4,500,000 so'm</p>
                 </div>
             </div>
         </div>
 
-        <!-- Screen 3: AI Referat -->
+        <!-- Screen: AI Screen -->
         <div id="apiReferatScreen" class="screen">
-            <header class="screen-header">
-                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
-                <h2>Referat AI</h2>
+            <header class="header">
+                <div>
+                    <h1 style="font-family: 'Outfit';">Referat AI</h1>
+                    <p style="font-size: 13px; color: var(--text-muted);">Mavzu asosida reja va matn</p>
+                </div>
+                <button class="icon-box" onclick="navTo('homeScreen')" style="background:transparent; border-radius:12px; font-size:24px;"><i class="ri-close-line"></i></button>
             </header>
             
-            <div class="card-feature pro-locked" style="margin-bottom: 25px; border-style: dashed; border-color: var(--primary);">
-                <div class="card-content">
-                    <p>Ushbu bo'lim faqat <b>PRO</b> foydalanuvchilar uchun. Mavzu kiriting va AI botga natijani yuboradi.</p>
-                </div>
+            <div class="card-item" style="background: rgba(129, 140, 248, 0.05); border-color: rgba(129, 140, 248, 0.3); margin-bottom: 24px;">
+                <p style="font-size: 12px; line-height: 1.6;">💡 <b>DIQQAT:</b> Mavzuni kiriting. Sun'iy Intellekt uni tahlil qilib, professional reja tayyorlaydi va botning o'ziga yuboradi.</p>
             </div>
 
-            <div class="input-group">
-                <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: block;">Mavzu yoki sarlavha:</label>
-                <input type="text" id="aiTopic" placeholder="Masalan: O'zbekiston iqtisodiyoti">
-            </div>
-
-            <button class="btn-premium" id="generateAI" style="background: var(--primary); color: #fff;">
-                <i class="ri-ai-generate"></i> Rejani shakllantirish
+            <div style="margin-bottom: 12px; font-size: 12px; font-weight: 700; color: var(--text-muted); opacity:0.8;">REFERAT MAVZUSI</div>
+            <input type="text" id="aiTopic" class="input-field" placeholder="Masalan: Logistika tizimlari...">
+            
+            <button class="btn-main" id="generateAI" style="background: var(--primary); box-shadow: 0 10px 20px rgba(129, 140, 248, 0.3);">
+                <i class="ri-ai-generate"></i> Generatsiya qilish
             </button>
         </div>
 
-        <!-- Screen 4: Invite -->
+        <!-- Screen: Invite -->
         <div id="inviteScreen" class="screen">
-            <header class="screen-header">
-                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
-                <h2>Takliflar</h2>
+            <header class="header">
+                <h1 style="font-family: 'Outfit';">Takliflar</h1>
             </header>
-            
-            <div class="hero-banner" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
-                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Ballar To'plang!</h3>
-                <p>Har bir taklif qilingan do'st uchun sizga 1 ball beriladi.</p>
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <div style="flex:1; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; text-align: center;">
-                        <span id="currentPointsBig" style="font-size: 24px; font-weight: 800; display: block;">0</span>
-                        <span style="font-size: 10px; opacity: 0.8;">Jami ballar</span>
-                    </div>
-                </div>
+
+            <div class="hero-card" style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(129, 140, 248, 0.1)); border-color: rgba(52, 211, 153, 0.3);">
+                <i class="ri-gift-line" style="font-size: 32px; color: var(--success); margin-bottom: 12px; display: block;"></i>
+                <h2 style="font-size: 18px; margin-bottom: 8px;">Do'stlarni taklif qiling!</h2>
+                <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Har bir taklif uchun ballar beriladi. Ushbu ballarni Premiumga almashtirish mumkin.</p>
             </div>
 
-            <div class="input-group">
-                <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: block;">Sizning referral havolangiz:</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="refLink" readonly style="font-size: 11px;">
-                    <button class="btn-back" id="copyRefBtn" style="color: var(--primary);"><i class="ri-file-copy-line"></i></button>
-                </div>
+            <div class="input-field" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); margin-top:20px;">
+                <span id="refLink" style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%;">Yuklanmoqda...</span>
+                <i class="ri-file-copy-line" id="copyRefBtn" style="color: var(--primary); font-size: 20px; cursor: pointer;"></i>
             </div>
-            <button class="btn-premium" id="shareBtn"><i class="ri-share-forward-line"></i> Do'stlarga yuborish</button>
+
+            <button class="btn-main" id="shareBtn" style="margin-top: 15px;">
+                <i class="ri-share-forward-line"></i> Do'stlarga tarqatish
+            </button>
         </div>
 
-        <!-- Screen 5: Payments -->
+        <!-- Screen: Payment -->
         <div id="payScreen" class="screen">
-            <header class="screen-header">
-                <button class="btn-back" onclick="navTo('homeScreen')"><i class="ri-arrow-left-s-line"></i></button>
-                <h2>To'lov</h2>
-            </header>
-            <div style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border); margin-bottom: 30px;">
-                <div style="width: 45px; height: 30px; background: #eab308; border-radius: 6px; margin-bottom: 25px;"></div>
-                <h3 id="cardNumber" style="letter-spacing: 4px; font-size: 18px; margin-bottom: 20px;">8600 1234 5678 9012</h3>
-                <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.6;">
-                    <span>HOLDER NAME</span>
-                    <span>EXP DATE</span>
+            <header class="header">
+                <div>
+                    <h1 style="font-family: 'Outfit';">Premium</h1>
+                    <p style="font-size: 13px; color: var(--text-muted);">Cheksiz imkoniyatlarga ega bo'ling</p>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-weight: 600;">
+            </header>
+            
+            <div style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border); margin-bottom: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <div style="width: 48px; height: 32px; background: #eab308; border-radius: 6px;"></div>
+                    <i class="ri-visa-line" style="font-size: 32px; opacity: 0.5;"></i>
+                </div>
+                <h3 id="cardNumber" style="letter-spacing: 4px; font-size: 18px; margin-bottom: 24px; font-family: monospace;">8600 1234 5678 9012</h3>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; opacity: 0.5; text-transform: uppercase;">
+                    <span>SOTIB OLUVCHI</span>
+                    <span>HUZMA</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 12px; margin-top: 4px;">
                     <span>ADMIN NAME</span>
                     <span>12/28</span>
                 </div>
             </div>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; text-align: center;">Premium narxi: 10,000 so'm / Umrbod</p>
-            <button id="confirmPayBtn" class="btn-premium" style="background: var(--success); color: #fff;">To'lovni tasdiqlash</button>
+
+            <div class="card-item" style="margin-bottom: 30px; border-style: dashed;">
+                <div style="flex:1;">
+                    <div style="font-size: 14px; font-weight: 700;">Premium Tarif (Lifetime)</div>
+                    <div style="font-size: 12px; color: var(--success); margin-top: 2px;">Hammasi bir martalik to'lovda!</div>
+                </div>
+                <div style="font-size: 18px; font-weight: 800;">10,000 UZS</div>
+            </div>
+
+            <button class="btn-main" id="confirmPayBtn" style="background: var(--success); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);">
+                To'lovni Tasdiqlash
+            </button>
         </div>
 
     </div>
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <a href="javascript:void(0)" class="nav-btn active" onclick="navTo('homeScreen')">
-            <i class="ri-home-7-line"></i>
-            <span>Asosiy</span>
+    <!-- Bottom Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="javascript:void(0)" class="nav-link active" onclick="navTo('homeScreen')">
+            <i class="ri-home-5-line"></i><span>Asosiy</span>
         </a>
-        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('inviteScreen')">
-            <i class="ri-group-line"></i>
-            <span>Taklif</span>
+        <a href="javascript:void(0)" class="nav-link" onclick="navTo('inviteScreen')">
+            <i class="ri-gift-line"></i><span>Taklif</span>
         </a>
-        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('marketScreen')">
-            <i class="ri-shopping-bag-line"></i>
-            <span>Market</span>
+        <a href="javascript:void(0)" class="nav-link" onclick="navTo('marketScreen')">
+            <i class="ri-shopping-2-line"></i><span>Market</span>
         </a>
-        <a href="javascript:void(0)" class="nav-btn" onclick="navTo('apiReferatScreen')">
-            <i class="ri-magic-line"></i>
-            <span>AI</span>
+        <a href="javascript:void(0)" class="nav-link" onclick="navTo('apiReferatScreen')">
+            <i class="ri-magic-line"></i><span>AI</span>
         </a>
     </nav>
 
-    <div id="loadingOverlay" class="loading-overlay hidden">
-        <div class="spinner"></div>
-        <p style="margin-top: 20px; font-weight: 600;">Iltimos kuting...</p>
+    <!-- Global Loader -->
+    <div id="loader" class="loader-overlay hidden">
+        <div class="loader"></div>
     </div>
 
-    <!-- JavaScript -->
     <script src="app.js"></script>
 </body>
 </html>
