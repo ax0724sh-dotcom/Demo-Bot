@@ -38,9 +38,14 @@
                     </div>
                 </div>
                 <div style="height: 1px; background: rgba(255,255,255,0.05); margin: 24px 0;"></div>
-                <button class="btn-main" onclick="navTo('payScreen')" id="upgradeBtn">
-                    <i class="ri-flashlight-line"></i> Premium Faollashtirish
-                </button>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button class="btn-main" onclick="navTo('payScreen')" id="upgradeBtn" style="flex: 2;">
+                        <i class="ri-flashlight-line"></i> Premium Faollashtirish
+                    </button>
+                    <button class="btn-main" id="dailyBonusBtn" style="flex: 1; background: rgba(52, 211, 153, 0.1); border: 1px solid var(--success); box-shadow: none; color: var(--success);">
+                        <i class="ri-gift-line"></i> Bonus
+                    </button>
+                </div>
             </div>
 
             <h2 class="grid-title">Barcha Xizmatlar</h2>
@@ -183,6 +188,68 @@
             </button>
         </div>
 
+        <!-- Screen: Admin Panel -->
+        <div id="adminScreen" class="screen">
+            <header class="header">
+                <div>
+                    <h1 style="font-family: 'Outfit';">Admin Panel</h1>
+                    <p style="font-size: 13px; color: var(--text-muted);">Boshqaruv va statistika</p>
+                </div>
+                <button class="icon-box" onclick="navTo('homeScreen')" style="background:transparent; border-radius:12px; font-size:24px;"><i class="ri-close-line"></i></button>
+            </header>
+
+            <!-- Stats Rows -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                <div class="card-item" style="flex-direction: column; align-items: flex-start; padding: 15px;">
+                    <span style="font-size: 12px; color: var(--text-muted);">Jami foydalanuvchilar</span>
+                    <div id="statTotalUsers" style="font-size: 24px; font-weight: 800; color: var(--primary); margin-top: 5px;">0</div>
+                </div>
+                <div class="card-item" style="flex-direction: column; align-items: flex-start; padding: 15px;">
+                    <span style="font-size: 12px; color: var(--text-muted);">Premium a'zolar</span>
+                    <div id="statPremiumUsers" style="font-size: 24px; font-weight: 800; color: var(--secondary); margin-top: 5px;">0</div>
+                </div>
+            </div>
+
+            <!-- Broadcast Section -->
+            <div style="margin-bottom: 24px;">
+                <h3 style="font-size: 14px; margin-bottom: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Xabar yuborish (Broadcast)</h3>
+                <textarea id="broadcastText" class="input-field" placeholder="Barcha foydalanuvchilarga xabar yuboring..." style="height: 100px; padding: 12px; resize: none;"></textarea>
+                <button class="btn-main" id="sendBroadcastBtn" style="margin-top: 10px; background: var(--primary);">
+                    <i class="ri-send-plane-fill"></i> Xabarni yuborish
+                </button>
+            </div>
+
+            <!-- User Management -->
+            <h3 style="font-size: 14px; margin-bottom: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Foydalanuvchilarni boshqarish</h3>
+            <div class="input-field" style="display: flex; align-items: center; gap: 10px;">
+                <i class="ri-search-line" style="opacity: 0.5;"></i>
+                <input type="text" placeholder="ID yoki Ism bo'yicha qidirish..." style="background: transparent; border: none; outline: none; color: white; width: 100%;">
+            </div>
+
+            <div class="user-list" style="margin-top: 15px;">
+                <!-- Sample Admin Users -->
+                <div class="card-item" style="margin-bottom: 10px;">
+                    <div class="icon-box" style="background: rgba(255,255,255,0.05); font-size: 18px;">👤</div>
+                    <div class="card-info">
+                        <h3>Asadbek</h3>
+                        <p>ID: 123456789</p>
+                    </div>
+                    <button class="status-chip pro-chip" style="margin-left: auto;">PRO</button>
+                    <i class="ri-more-2-fill" style="opacity: 0.5; margin-left: 10px;"></i>
+                </div>
+                <div class="card-item" style="margin-bottom: 10px;">
+                    <div class="icon-box" style="background: rgba(255,255,255,0.05); font-size: 18px;">👤</div>
+                    <div class="card-info">
+                        <h3>Diyorbek</h3>
+                        <p>ID: 987654321</p>
+                    </div>
+                    <button class="status-chip std-chip" style="margin-left: auto;">STD</button>
+                    <i class="ri-more-2-fill" style="opacity: 0.5; margin-left: 10px;"></i>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <!-- Bottom Navigation Bar -->
@@ -198,6 +265,9 @@
         </a>
         <a href="javascript:void(0)" class="nav-link" onclick="navTo('apiReferatScreen')">
             <i class="ri-magic-line"></i><span>AI</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-link" id="adminNavLink" onclick="navTo('adminScreen')" style="display: none;">
+            <i class="ri-settings-4-line"></i><span>Admin</span>
         </a>
     </nav>
 

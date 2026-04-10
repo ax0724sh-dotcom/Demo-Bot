@@ -12,6 +12,8 @@ const loader = document.getElementById('loader');
 // URL Params
 const urlParams = new URLSearchParams(window.location.search);
 const isAdmin = urlParams.get('admin') === 'true';
+const totalUsers = urlParams.get('total_users') || '0';
+const premiumUsers = urlParams.get('premium_users') || '0';
 const points = urlParams.get('points') || '0';
 const refLink = urlParams.get('ref_link') || 'Loading...';
 
@@ -27,6 +29,12 @@ if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         userStatusEl.innerText = "👑 VIP ADMIN";
         document.getElementById('upgradeBtn').innerText = "Admin Paneli (VIP)";
         document.getElementById('upgradeBtn').style.background = 'var(--secondary)';
+        document.getElementById('upgradeBtn').onclick = () => navTo('adminScreen');
+        document.getElementById('adminNavLink').style.display = 'flex';
+        
+        // Populate stats
+        document.getElementById('statTotalUsers').innerText = totalUsers;
+        document.getElementById('statPremiumUsers').innerText = premiumUsers;
     }
 }
 
@@ -51,6 +59,7 @@ function navTo(screenId) {
         if (screenId === 'inviteScreen' && link.innerText.includes('Taklif')) link.classList.add('active');
         if (screenId === 'marketScreen' && link.innerText.includes('Market')) link.classList.add('active');
         if (screenId === 'apiReferatScreen' && link.innerText.includes('AI')) link.classList.add('active');
+        if (screenId === 'adminScreen' && link.innerText.includes('Admin')) link.classList.add('active');
     });
 
     // Scroll to top
@@ -110,6 +119,38 @@ document.getElementById('confirmPayBtn').addEventListener('click', () => {
             }, 1000);
         }
     });
+});
+
+// Admin Logic: Broadcast
+document.getElementById('sendBroadcastBtn')?.addEventListener('click', () => {
+    const text = document.getElementById('broadcastText').value;
+    if (!text) {
+        tg.showAlert("Xabar matnini kiriting!");
+        return;
+    }
+    tg.showConfirm(`Ushbu xabarni BARCHA foydalanuvchilarga yuborasizmi?`, (ok) => {
+        if (ok) {
+            loader.classList.remove('hidden');
+            tg.sendData(JSON.stringify({
+                action: "admin_broadcast",
+                text: text
+            }));
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                tg.close();
+            }, 1500);
+        }
+    });
+});
+
+// Daily Bonus Logic
+document.getElementById('dailyBonusBtn')?.addEventListener('click', () => {
+    loader.classList.remove('hidden');
+    tg.sendData(JSON.stringify({ action: "get_bonus" }));
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        tg.close();
+    }, 1000);
 });
 
 // Initial View
